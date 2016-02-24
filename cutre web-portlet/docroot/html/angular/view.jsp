@@ -39,16 +39,17 @@
 </portlet:resourceURL>
 
 <div id="<portlet:namespace/>">
-	<div data-ng-controller="RouteController<portlet:namespace/>">
+	<div data-ng-controller="RouteController<portlet:namespace/>" data-ng-cloak>
 		<nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/"><i class="fa fa-usd fa-2x"></i>&nbsp; Pruebas en Angular</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#<portlet:namespace/>"><i class="fa fa-home"></i> Home</a></li>
-                    <li><a href="#about<portlet:namespace/>"><i class="fa fa-shield"></i> About</a></li>
-                    <li><a href="#contact<portlet:namespace/>"><i class="fa fa-comment"></i> Contact</a></li>
+                	<!-- CAMBIADO # POR / PARA Q NO APAREZCAN LOS # -->
+                    <li><a href="/<portlet:namespace/>"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="/about<portlet:namespace/>"><i class="fa fa-shield"></i> About</a></li>
+                    <li><a href="/contact<portlet:namespace/>"><i class="fa fa-comment"></i> Contact</a></li>
                 </ul>
             </div>
 		</nav>
@@ -77,8 +78,17 @@
             .when('/contact<portlet:namespace/>', {
 	            templateUrl: '${template3}',
 	            controller: 'RouteController<portlet:namespace/>'
+       		})
+       		.otherwise({
+       			redirectTo: '${template1}'
        		});
 	    	//$locationProvider.html5Mode(true);
+	    	// Para que no aparezcan # en la URL
+	    	$locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
+        	 });
+	    	
       }]);
 
     <portlet:namespace/>module.controller("RouteController<portlet:namespace/>", function($scope) {
